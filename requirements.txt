@@ -6,3 +6,5 @@ requests
 playwright
 google-cloud-storage
 yt-dlp
+Flask
+gunicorn
