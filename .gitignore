@@ -1,0 +1,9 @@
+.env
+token.pickle
+tiktok_token.json
+pkce_verifier.txt
+auth_output.log
+auth_tiktok_output.log
+*.png
+scratch_extract.py
+extracted_tiktok.json

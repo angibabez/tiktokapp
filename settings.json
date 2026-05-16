@@ -1,0 +1,17 @@
+{
+  "pipelines": {
+    "youtube_to_instagram": true,
+    "youtube_to_tiktok": true
+  },
+  "filters": {
+    "include_hashtags": [],
+    "exclude_hashtags": []
+  },
+  "hashtag_mappings": [
+    {
+      "hashtag": "ai",
+      "youtube_playlist_id": "",
+      "description": "Posts with #ai will go to this playlist"
+    }
+  ]
+}

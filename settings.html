@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Reposter Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-color: #ff0050; /* TikTok Pink */
+            --accent-secondary: #00f2fe; /* Cyan */
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 0, 80, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(0, 242, 254, 0.15) 0px, transparent 50%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Toggles */
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .toggle-sublabel {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #475569;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(135deg, var(--accent-color), #ff007f);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Inputs */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"] {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Tag inputs */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            min-height: 46px;
+            align-items: center;
+        }
+
+        .tag {
+            background: rgba(255, 0, 80, 0.2);
+            border: 1px solid rgba(255, 0, 80, 0.3);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .tag button:hover {
+            color: white;
+        }
+
+        .tags-container input {
+            border: none;
+            background: none;
+            color: white;
+            outline: none;
+            padding: 0.25rem;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        /* Button */
+        .save-btn {
+            background: linear-gradient(135deg, var(--accent-color), #ff007f);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px 0 rgba(255, 0, 80, 0.3);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(255, 0, 80, 0.4);
+            opacity: 0.9;
+        }
+
+        .save-btn:active {
+            transform: translateY(0);
+        }
+
+        /* JSON Output */
+        .json-output {
+            margin-top: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+            white-space: pre-wrap;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Reposter Settings</h1>
+    <div class="subtitle">Configure your cross-posting automation pipelines.</div>
+
+    <!-- Pipelines -->
+    <div class="section">
+        <h2>⚡ Workflows</h2>
+        <div class="toggle-group">
+            <div class="toggle-item">
+                <div class="toggle-label">
+                    TikTok → YouTube Shorts
+                    <div class="toggle-sublabel">Automatically post new TikToks to YouTube</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="pipe-yt" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="toggle-item">
+                <div class="toggle-label">
+                    TikTok → Instagram Reels
+                    <div class="toggle-sublabel">Automatically post new TikToks to Instagram</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="pipe-ig" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hashtag Filters -->
+    <div class="section">
+        <h2>🏷️ Content Filters</h2>
+        <div class="input-group" style="margin-bottom: 1.5rem;">
+            <label>Only include posts with these hashtags</label>
+            <div class="tags-container" id="include-tags-container">
+                <input type="text" id="include-input" placeholder="Type hashtag and press Enter...">
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Exclude posts with these hashtags</label>
+            <div class="tags-container" id="exclude-tags-container">
+                <input type="text" id="exclude-input" placeholder="Type hashtag and press Enter...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Mappings -->
+    <div class="section">
+        <h2>🗺️ Playlist Mappings</h2>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+                <label style="display: block; margin-bottom: 0.5rem;">Hashtag</label>
+                <input type="text" id="map-tag" value="#ai">
+            </div>
+            <div>
+                <label style="display: block; margin-bottom: 0.5rem;">YouTube Playlist ID</label>
+                <input type="text" id="map-playlist" placeholder="Enter Playlist ID...">
+            </div>
+        </div>
+    </div>
+
+    <button class="save-btn" id="save-btn">Save Settings</button>
+
+    <div class="json-output" id="json-output"></div>
+</div>
+
+<script>
+    // Tag handling
+    function setupTags(inputId, containerId) {
+        const input = document.getElementById(inputId);
+        const container = document.getElementById(containerId);
+        const tags = [];
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && input.value.trim() !== '') {
+                const tag = input.value.trim().replace(/^#/, '');
+                if (!tags.includes(tag)) {
+                    tags.push(tag);
+                    renderTags();
+                }
+                input.value = '';
+            }
+        });
+
+        function renderTags() {
+            // Clear existing tags except input
+            const tagElements = container.querySelectorAll('.tag');
+            tagElements.forEach(el => el.remove());
+
+            tags.forEach(tag => {
+                const tagEl = document.createElement('div');
+                tagEl.className = 'tag';
+                tagEl.innerHTML = `#${tag} <button>&times;</button>`;
+                tagEl.querySelector('button').addEventListener('click', () => {
+                    const index = tags.indexOf(tag);
+                    tags.splice(index, 1);
+                    renderTags();
+                });
+                container.insertBefore(tagEl, input);
+            });
+        }
+
+        return tags;
+    }
+
+    const includeTags = setupTags('include-input', 'include-tags-container');
+    const excludeTags = setupTags('exclude-input', 'exclude-tags-container');
+
+    // Save handling
+    document.getElementById('save-btn').addEventListener('click', () => {
+        const settings = {
+            pipelines: {
+                tiktok_to_youtube: document.getElementById('pipe-yt').checked,
+                tiktok_to_instagram: document.getElementById('pipe-ig').checked
+            },
+            filters: {
+                include_hashtags: includeTags,
+                exclude_hashtags: excludeTags
+            },
+            hashtag_mappings: [
+                {
+                    hashtag: document.getElementById('map-tag').value.replace(/^#/, ''),
+                    youtube_playlist_id: document.getElementById('map-playlist').value
+                }
+            ]
+        };
+
+        const jsonOutput = document.getElementById('json-output');
+        jsonOutput.textContent = JSON.stringify(settings, null, 2);
+        jsonOutput.style.display = 'block';
+
+        // In a real app, we would send this to a backend
+        alert('Settings generated! Copy the JSON below and save it to settings.json in your workspace.');
+    });
+</script>
+
+</body>
+</html>
