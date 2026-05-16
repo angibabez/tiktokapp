@@ -16,7 +16,6 @@ def home():
 @app.route('/privacy')
 def privacy():
     content = read_md_file("privacy_policy.md")
-    # Simple HTML wrap
     return render_template_string("<html><body><pre>{{ content }}</pre></body></html>", content=content)
 
 @app.route('/terms')
@@ -24,10 +23,10 @@ def terms():
     content = read_md_file("terms_of_service.md")
     return render_template_string("<html><body><pre>{{ content }}</pre></body></html>", content=content)
 
-# Placeholder for TikTok domain verification file if needed later
-# @app.route('/tiktokxxxxx.html')
-# def verify():
-#     return "verification_code"
+# TikTok Verification
+@app.route('/tiktokuTRNwzZNzLrb05vvrnCfhNYJB5M28tsp.txt')
+def verify():
+    return "tiktok-developers-site-verification=uTRNwzZNzLrb05vvrnCfhNYJB5M28tsp"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
